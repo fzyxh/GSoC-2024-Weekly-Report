@@ -1,0 +1,71 @@
+---
+title: "GSoC 2024 Week 2"
+author: "Yinxiang Huang"
+format: revealjs
+editor: visual
+---
+
+## Coding Plan
+
+Week 1-3:
+
+-   Expand the texor package by incorporating features to convert Sweave (.Rnw) files into R Markdown effectively, while preserving the integrity of executable code segments.
+
+Week 2:
+
+-   Integrate the conversion workflow of code chunks and inline code in texor package.
+
+## What have been done
+
+-   To convert Sweave files to R Markdown files, we need to follow these steps:
+
+    ``` r
+    library(devtools)
+    setwd("path/to/fzyxh/texor")
+    load_all()
+    setwd("path/to/fzyxh/texor-playground/est_texor")
+    input_file <- "path/to/fzyxh/texor-playground/test_texor/test_codes.Rnw"
+    rnw_to_rmd(input_file)
+    # Then we got output: RJwrapper.Rmd
+    ```
+
+- `fzyxh/texor-playground/matrix_comparisons/Comparisons_mod.Rnw` is another example.
+
+## What have been done
+
+```{r, echo=FALSE, results='asis'}
+setwd("C:\\Users\\phinney\\Desktop\\GSoC2024\\presentation\\week2")
+cat('<div style="display: flex;">')
+cat('<img src="./1.png" alt="filter1" style="width: 50%;"/>')
+cat('<img src="./2.png" alt="filter2" style="width: 50%;height: 50%"/>')
+cat('</div>')
+```
+
+## What have been done
+
+-  How did I convert inline R code?
+
+    -   I use `\newcommand{\Sexpr}[1]{\verb|r #1|}` to convert inline R code in most env.
+    - Then use gsub to catch `\Sexpr{...}` in verbatim and `\verb|r ...|` in inline math.
+
+## Problems to solve out
+
+- rnw_to_rmd workflow use latex_to_markdown() function in latex now. But it adds fixed metadata for **R-Journal**, not for **package vignettes**. I will update it then.
+
+- In latex math environment, some syntax cannot be correctly shown in R Markdown or HTML, such as `\bX` and `\trans`. They can be replaced by `\mathbf{X}` and `\top`, but it's a problem that how many **math syntax** should be considered.
+
+## Problems to solve out
+
+-   The body of the article works well, but there's something wrong when converting metadata like abstract.
+
+-   texor can only handle `\abstract{}` now, but usually, the abstract is defined as `\begin{abstarct} ... \end{abstract}` in the Rnw file.
+
+- And texor use Metafix.sty to regard `\abstract{}` as `\author{}`, which means it works bad when no author is defined.
+
+## Timeline arrangement change
+
+-   As I mentioned in my proposal, I have two finals and two presentations next week. From June 7 to June 13, I need to prepare for them. Although this will make it difficult for me to update the code in the following week, the discussion will not be affected.
+
+- I'll be catching up on the backlog in the following weeks.
+
+# Thank you!

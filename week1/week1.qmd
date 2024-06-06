@@ -1,0 +1,147 @@
+---
+title: "GSoC 2024 Week 1"
+author: "Yinxiang Huang"
+format: revealjs
+editor: visual
+---
+
+## What is texor
+
+texor is a package that deals with multiple challenges that occour in conversion of **LaTeX** source files (which typically generate a PDF) to a web friendly **RJ-web-article** format.
+
+WorkFlow:
+
+1.  Convert LaTeX to Markdown
+2.  Convert Markdown to R Markdown
+3.  Convert R Markdown to RJ-web-article
+
+## Coding Plan
+
+Week 1-3:
+
+-   Expand the texor package by incorporating features to convert Sweave (.Rnw) files into R Markdown effectively, while preserving the integrity of executable code segments.
+
+Week 1:
+
+-   Integrate the code chunk's conversion workflow in texor package.
+
+## What is Sweave and R Markdown {.smaller}
+
+- Briefly, 
+    - Sweave = R + LaTeX, 
+    - R Markdown = R + Markdown, 
+    - Knitr $\approx$ Sweave. (knitr can be the bridge between Sweave and R Markdown)
+
+> Before knitr 1.0, it was compatible with Sweave for easier transition from Sweave to knitr, but the compatibility was dropped since v1.0 for (much) easier maintenance of this package. If you have an Rnw document written for Sweave, the first step you can do is to call Sweave2knitr() on it, and knitr will automatically correct the syntax (mainly chunk options, e.g. results=hide should be results='hide', and eval=true should be eval=TRUE, etc).
+
+[Yihui: Transition from Sweave to knitr](https://yihui.org/knitr/demo/sweave/)
+
+## How to convert Sweave files to R Markdown
+
+To convert Sweave (.Rnw) files into R Markdown, we have a workflow as follows:
+
+1.  Convert Sweave files to knitr files.
+2.  Convert knitr files to LaTex files.
+3.  Convert <font color='red'> knitr & LaTex</font> files to Markdown files.
+4.  Convert Markdown files to R Markdown files.
+
+## What have been done
+
+::: fragment
+-   For the first two steps, we can just use knitr:
+
+    ``` r
+    setwd("/path/to/article")
+    input_file <- "/path/to/article/example.Rnw"
+    output_file <- "/path/to/article/example.tex"
+    knitr::Sweave2knitr(input_file)
+    knitr::knit(input = input_file, output = output_file)
+    ```
+:::
+
+::: fragment
+-   For the third step, texor has been used to convert LaTex files to Markdown files, and it did most of the work.
+
+    Most of my work to expand the texor package is to integrate the code chunk's conversion workflow in texor package:
+
+    -   Code Chunk: `<< >>= ... @` to ```` ```{r} ... ``` ````
+    -   Inline Code: `\Sexpr{...}` to `` ` r ...` ``
+:::
+
+## What have been done
+
+-   For the Code Chunks, I used two lua filter to achieve the conversion:
+
+```{r, echo=FALSE, results='asis'}
+setwd("C:\\Users\\phinney\\Desktop\\GSoC2024\\presentation\\week1")
+cat('<div style="display: flex;">')
+cat('<img src="./1.png" alt="filter1" style="width: 50%;"/>')
+cat('<img src="./2.png" alt="filter2" style="width: 50%;height: 50%"/>')
+cat('</div>')
+```
+
+## What have been done
+
+-   Input file:
+
+![](./3.png)
+
+## What have been done
+
+-   Results:
+
+![](./4.png)
+
+## What have been done {.smaller}
+
+-   For the Inline Code, I added a `\newcommand{\Sexpr}[1]{\verb|r #1|}` to convert, but there's problem when the inline code contained in inline math:
+
+::::: fragment
+:::: {.columns}
+::: {.column width="50%"}
+- Input:
+
+```latex
+<<>>=
+options(OutDec = ',')
+@
+
+This is the first test. abc \Sexpr{0.6} def
+
+another test $a = \Sexpr{0.6}$.
+
+and the last one $a = \Sexpr{'0.6'}$.
+```
+:::
+
+::: {.column width="50%"}
+- Output:
+
+```markdown
+This is the first test. abc `r 0.6` def
+
+another test $a = \verb|r 0.6|$.
+
+and the last one $a = \verb|r '0.6'|$.
+
+```
+:::
+::::
+::::: 
+
+## Problems to solve out {.smaller}
+
+-   The `\Sexpr{}` in inline math is not converted correctly.
+    - We may need lua filter to handle this.
+-   Wrong serial number of image from file and code-generated image （in HTML output）.
+    - Maybe it's not a problem for Rnw2Rmd, but it's better to solve it.
+- Some R script in code chunk cannot work correctly in RMarkdown, like `knitr::render_sweave()` which set compile options for Sweave.
+    - But if we just convert to RMarkdown and not to execute it, it's not a problem. (not a problem for Rnw2Rmd)
+
+## Another important thing
+
+- Good workflow helps to improve the efficiency of the project, I just created a [pull request](https://github.com/Abhi-1U/rebib/pull/22) to the rebib package as an example.
+
+![](./5.png)
+
+# Thank you!
