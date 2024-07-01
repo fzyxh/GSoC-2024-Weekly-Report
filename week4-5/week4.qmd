@@ -1,0 +1,106 @@
+---
+title: "GSoC 2024 Week 4-5"
+author: "Yinxiang Huang"
+format: revealjs
+editor: visual
+---
+
+## Coding Plan
+
+Week 4-6 (Plan):
+
+-   Finish Issue [#68](https://github.com/Abhi-1U/texor/issues/68): Make an optional param for autonumbering equations without `\nonumber`
+
+Week 4-5 (Real):
+
+-   Finish .rnw -\> .rmd workflow and test
+-   Finish Issue [#68](https://github.com/Abhi-1U/texor/issues/68): Make an optional param for autonumbering equations without `\nonumber`. It's related to current work on .rnw -\> .rmd workflow.
+
+## What have been done (Committed)
+
+-   Fixed the bug that cannot correctly convert abstract in some cases.
+-   Added support for self-defined macros in rnw_to_rmd workflow.
+-   Fixed some math syntax that cannot be correctly shown in R Markdown or HTML.
+-   Added support for multiple yaml metadata in rnw_to_rmd workflow.
+
+## What have been done (Committed) {.smaller}
+
+-   Fixed Number, label and cite equations in R Markdown.
+    -   `\label` is only supported in `bookdown::html_document2`, not in `rmarkdown::html_vignette`.
+    -   Fortunately, Christophe's solution may help.
+
+<br>
+
+-   To keep HTML file size small and make use of the feature in `bookdown::html_document2` format at the same time, we may use following output options as default:
+
+    ``` yaml
+    output: 
+      bookdown::html_document2:
+        base_format: rmarkdown::html_vignette
+        number_sections: true
+    ```
+
+## What have been done (Committed) {.smaller}
+
+-   Preserve bib file and reference in R Markdown.
+    -   Reference format should be considered
+    -   Style can be changed with Citation Style Language (`.csl` file), but different styles in one document are not supported.
+    - Cannot detect all fields when converting reference to BibTeX format.
+
+```{r, echo=FALSE, results='asis'}
+setwd("C:\\Users\\phinney\\Desktop\\GSoC2024\\GSoC-2024-Weekly-Report\\week4-5")
+cat('<div style="display: flex;">')
+cat('<img src="./1.png" alt="filter1" style="width: 50%;"/>')
+cat('<img src="./2.png" alt="filter2" style="width: 50%;height: 50%"/>')
+cat('</div>')
+```
+
+## What have been done (Committed)
+
+-   Bibliography can have different cite styles in Rnw file, like `\citep{}` and `\citet{}`. But R Markdown only supports the same style, although author is optional.
+
+<br>
+
+-   For example in R Markdown:
+
+    ``` markdown
+    Cite here[@koen:ng:2003]. Another try without authors[-@koen:ng:2003].
+    ```
+
+    will be converted to:
+
+    ``` markdown
+    Cite here(Koenker and Ng 2003). Another try without authors(2003).
+    ```
+
+## What have been done (Committed)
+
+-   But in R Markdown, we cannot cite with different styles in the same document like LaTeX. For example:
+
+    ``` latex
+    Cite here\citet{koen:ng:2003}. Another try\citep{koen:ng:2003}.
+    ```
+
+    will be converted to:
+
+    ``` latex
+    Cite here Koenker and Ng (2003). Another try (Koenker and Ng, 2003).
+    ```
+    
+## Problems to solve out
+
+- Some LaTeX commands befor `\begin{document}` should be move to wrapper file or be deleted.
+
+<p align="center">
+  <img src="./3.png" style="width: 40%;height: 40%" />
+</p>
+
+## Next to do
+
+-   Handle the problem of LaTeX commands before `\begin{document}`.
+-   Create a test example file to cover most part of the workflow.
+-   Write Documents for functions.
+-   Create first PR for `Abhi-1U/texor`.
+-   Deal with Issue #68.
+
+# Thank you!
