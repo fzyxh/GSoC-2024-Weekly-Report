@@ -1,0 +1,36 @@
+---
+title: "GSoC 2024 Week 6"
+author: "Yinxiang Huang"
+format: revealjs
+editor: visual
+---
+
+## Coding Plan
+
+Week 4-6 (Plan):
+
+-   Finish Issue [#68](https://github.com/Abhi-1U/texor/issues/68): Make an optional param for autonumbering equations without `\nonumber`
+
+Week 6(Real):
+
+-   Create a pull request to integrate Sweave to R Markdown workflow into texor 1.4.0.
+-   Finish Issue [#68](https://github.com/Abhi-1U/texor/issues/68): Make an optional param for autonumbering equations without `\nonumber`. Some idea has been discussed with Abhishek.
+
+## What have been done
+
+-   Document for `texor::rnw_to_rmd` function.
+-   Test for `texor::rnw_to_rmd` function.
+-   Passed R CMD Check without any ERRORs, WARNINGs, or NOTEs.
+-   Passed GitHub Workflow check for pkgdown and R CMD Check in different OS.
+-   Created a pull request to integrate Sweave to R Markdown workflow into texor 1.4.0.
+
+## Problems to solve out
+
+-   Numbering for image still need to be fixed. It will be fixed with Issue #67.
+
+## Next to do
+
+-   Work on Issue #68.
+-   Prepare for GSoC 2024 Midterm Evaluation.
+
+# Thank you!
