@@ -1,0 +1,35 @@
+---
+title: "GSoC 2024 Week 7"
+author: "Yinxiang Huang"
+format: revealjs
+editor: visual
+---
+
+## Coding Plan
+
+Week 7(Plan):
+
+-   Keep that time for emergencies, and write midterm evaluations
+
+Week 7(Real):
+
+-   Finish Issue [#68](https://github.com/Abhi-1U/texor/issues/68): Make an optional param for autonumbering equations without `\nonumber`. Some idea has been discussed with Abhishek.
+
+## What have been done
+
+-   Fix Issue [#68](https://github.com/Abhi-1U/texor/issues/68)
+-   Fix: extract abstract from article
+-   Finished GSoC 2024 Midterm Evaluation
+
+## Problems to solve out
+
+-   Numbering for image still need to be fixed. It will be fixed with Issue [#67](https://github.com/Abhi-1U/texor/issues/67).
+-   Some command should be replaced using macro
+
+## Next to do
+
+-   Work on Issue [#67](https://github.com/Abhi-1U/texor/issues/67).
+-   Write a vignette for `texor::rnw_to_rmd`
+-   Add chapter for reference
+
+# Thank you!
