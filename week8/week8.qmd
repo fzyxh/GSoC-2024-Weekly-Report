@@ -1,0 +1,68 @@
+---
+title: "GSoC 2024 Week 8"
+author: "Yinxiang Huang"
+format: revealjs
+editor: visual
+---
+
+## Coding Plan
+
+Week 8(Plan):
+
+-   fix Issue [#67](https://github.com/Abhi-1U/texor/issues/67): Consider non labelled figures/tables/algorithms in reference numbering
+
+Week 8(Real):
+
+-   fix Issue [#67](https://github.com/Abhi-1U/texor/issues/67): Consider non labelled figures/tables/algorithms in reference numbering
+
+## What have been done
+
+-   fix Issue [#67](https://github.com/Abhi-1U/texor/issues/67)
+-   add feature: auto number for equations (details in issue [#68](https://github.com/Abhi-1U/texor/issues/68))
+-   fixed some unsupported LaTeX commands in pandoc (some change break the workflow, so I [rolled back](https://github.com/fzyxh/texor/commit/b9365116fed72da6bd237d21ceb014c3e5b19c14))
+-   add vignette for `texor::rnw_to_rmd`
+
+## Solution for Issue #67
+
+To fix issue [#67](https://github.com/Abhi-1U/texor/issues/67), texor walked through the whole document to check if a `\begin{table}` environment has a label. If not, it will add a label for it. The label will be `table:auto` plus the number of the table.
+
+<br>
+
+### Why not use lua filter?
+
+Pandoc AST cannot tell if one is **part of widetable** without label or **a separate table** without label. It will be literally the same in AST. So we cannot use lua filter to solve this issue.
+
+## Solution for Issue #68
+
+Now texor provide an optional parameter `autonumber_eq` for `texor::latex_to_web` and `texor::rnw_to_rmd`. If `autonumber_eq = TRUE`, texor will add a label for each equation following the rules mentioned in issue [#68](https://github.com/Abhi-1U/texor/issues/68).
+
+<br>
+
+It was done by [`auto_number_equations.lua`](https://github.com/fzyxh/texor/blob/main/inst/auto_number_equations.lua).
+
+## Problems to solve out {.smaller}
+
+-   Numbering for image still need to be fixed.
+
+If you refer a figure from file and print a figure from R code chunk in the same document, you will find that their number is not sequential as expect. 
+
+We cannot easily know if a code chunk print a figure or not. So we need to compile the whole document to know the number of figures. For some documents, it may take a long time to compile. Manually number the figures maybe a better choice in such situation. So it can be an optional feature to let user decide.
+
+Below is an example or view [HTML](./example.html) and [pdf](./example.pdf) file directly:
+
+```r
+article_dir <- system.file("examples/sweave_article", package = "texor")
+dir.create(your_article_folder <- file.path(tempdir(), "tempdir"))
+x <- file.copy(from = article_dir, to = your_article_folder,recursive = TRUE)
+your_article_path <- paste(your_article_folder,"sweave_article", "example.Rnw",sep="/")
+your_article_path <- xfun::normalize_path(your_article_path)
+rnw_to_rmd(your_article_path, front_matter_type = "vignettes", clean_up = TRUE)
+unlink(your_article_folder, recursive = TRUE)
+```
+
+## Next to do
+
+-   Work on Issue [#69](https://github.com/Abhi-1U/texor/issues/67).
+-   fix numbering figures on `rnw_to_rmd`
+
+# Thank you!
