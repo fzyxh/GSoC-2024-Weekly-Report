@@ -1,0 +1,52 @@
+---
+title: "GSoC 2024 Week 10"
+author: "Yinxiang Huang"
+format: revealjs
+editor: visual
+---
+
+## Coding Plan
+
+Week 10(Plan):
+
+-    Finish Issue [#69](https://github.com/Abhi-1U/texor/issues/69): Challenges in incorprating pseudocodejs to implement `algorithmic` environment
+
+Week 10(Real):
+
+-   fix Issues related to previous work
+
+## What have been solved (by Abhishek)
+
+-   fix Issue [#85](https://github.com/Abhi-1U/texor/issues/85): "Checking for pandoc version" text redundant?
+
+## What have been solved (by Yinxiang Huang)
+
+-   fix Issue [#84](https://github.com/Abhi-1U/texor/issues/84): improve bibliography file name
+- fix Issue [#79](https://github.com/Abhi-1U/texor/issues/79): `\vspace*` commands should be completely deleted
+- fix Issue [#78](https://github.com/Abhi-1U/texor/issues/78): references are not hyperlinked
+- fix Issue [#77](https://github.com/Abhi-1U/texor/issues/77) : converting vignettes using jss.csl
+- improve example code for `texor::rnw_to_rmd` (rendering commands are commented to avoid check errors)
+
+## Discussion
+
+-   Issue [#81](https://github.com/Abhi-1U/texor/issues/81): suppress package startup messages
+
+<br>
+
+Check the issue for details.
+
+## Discussion
+
+-   Issue [#83](https://github.com/Abhi-1U/texor/issues/83): improve default sectioning
+- Issue [#76](https://github.com/Abhi-1U/texor/issues/76): More output options for `texor::rnw_to_rmd`
+
+<br>
+
+This two can be considered together. Check the issue for details.
+
+## Next to do
+
+-   Work on Issue [#69](https://github.com/Abhi-1U/texor/issues/67).
+-   fix numbering & centering figures on `rnw_to_rmd`
+
+# Thank you!
