@@ -17,3 +17,5 @@ GSoC 2024 Weekly Report Archive for texor
 [Week 10](./week10/week10.html)
 
 [Week 11](./week11/week11.html)
+
+[Week 12](./week12/week12.html)
