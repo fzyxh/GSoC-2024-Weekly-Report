@@ -1,0 +1,39 @@
+---
+title: "GSoC 2024 Week 13"
+author: "Yinxiang Huang"
+format: revealjs
+editor: visual
+---
+
+## Coding Plan
+
+Week 13(Plan):
+
+-   Keep that time for emergencies
+
+Week 13(Real):
+
+-   Finish Issue [#69](https://github.com/Abhi-1U/texor/issues/69): Challenges in incorprating pseudocodejs to implement `algorithmic` environment
+
+## What have been solved (by Abhishek)
+
+-   update vignettes
+
+## What have been solved (by Yinxiang Huang)
+
+-   finish issue [#69](https://github.com/Abhi-1U/texor/issues/69): Challenges in incorprating pseudocodejs to implement `algorithmic` environment
+
+## Discussion {.smaller}
+
+- Same solution as R code chunk
+
+- Automatically detect the label and add to algorithm environment
+
+- Crossing reference only available for equations
+
+
+## Next to do
+
+-   Submit Final Evaluation
+
+# Thank you at the end!
