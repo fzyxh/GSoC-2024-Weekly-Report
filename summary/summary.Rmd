@@ -1,0 +1,30 @@
+---
+title: |-
+  Sweave to R Markdown: new feature of `texor` package
+abstract: |
+  This is a short overview of the R package **texor**,
+  I'm Yinxiang Huang.
+author: |
+  Yinxiang Huang
+date: '2024-08-21'
+output:
+  bookdown::html_document2:
+    base_format: rmarkdown::html_vignette
+    number_sections: no
+    includes:
+      in_header:
+      - auto-number-sec-js.html
+link-citations: yes
+---
+
+::: article
+
+# Introduction {#sec:Intro}
+
+It's a biref introduction of the package **texor**.
+
+# Acknowledgments {#acknowledgments .unnumbered}
+
+Thanks for...
+
+:::
