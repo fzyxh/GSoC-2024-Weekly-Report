@@ -4,7 +4,7 @@ GSoC 2024 Weekly Report Archive for texor
 
 Source code repository is [here](https://github.com/fzyxh/texor)
 
-And [here](https://fzyxh.github.io/GSoC-2024-Weekly-Report/summary/summary.html) is a summary of my work in GSoC 2024.
+**And [here](https://fzyxh.github.io/GSoC-2024-Weekly-Report/summary/summary.html) is a summary of my work in GSoC 2024.**
 
 [Week 1](./week1/week1.html)
 
