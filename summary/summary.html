@@ -13,7 +13,7 @@
 
 <meta name="date" content="2024-08-21" />
 
-<title>Sweave to R Markdown: new feature of texor package</title>
+<title>From Sweave to R Markdown: How texor Help User Embrace the Web Format</title>
 
 <script>
 window.onload = function() {
@@ -297,13 +297,21 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 
 
-<h1 class="title toc-ignore">Sweave to R Markdown: new feature of <code>texor</code> package</h1>
+<h1 class="title toc-ignore">From Sweave to R Markdown: How <strong>texor</strong> Help User Embrace the Web Format</h1>
 <h4 class="author"><p>Yinxiang Huang</p></h4>
 <h4 class="date">2024-08-21</h4>
 <div class="abstract">
 <p class="abstract">Abstract</p>
-<p>This is a short overview of the R package <strong>texor</strong>,
-I’m Yinxiang Huang.</p>
+<p>Many of the early R packages used Sweave to write vigneettes,
+which will be shown to users as pdf format on CRAN. However, as
+time goes on, R Markdown, a lightweight markup language, has
+begun to gradually replace Sweave and better present content
+on CRAN in the form of HTML.</p>
+<p>In order to help many R package developers who haven’t used R
+Markdown or don’t have time to do the format conversion manually
+to migrate from Sweave to R Markdown, <strong>texor</strong> helps people
+automate this conversion process. That is most of my work in GSoC
+2024.</p>
 </div>
 
 
@@ -311,11 +319,38 @@ I’m Yinxiang Huang.</p>
 <div class="article">
 <div id="sec:Intro" class="section level1">
 <h1>Introduction</h1>
-<p>It’s a biref introduction of the package <strong>texor</strong>.</p>
+<p>texor used to be a toolkit for automating the conversion of R-Journal from pdf version to HTML version, with the aim of helping archives in CRAN migrate more easily to a flexible reading web format. When my mentors realized that there were still a lot of users struggling with how to easily convert their documents from Sweave format to R Markdown, and considering that this is very similar to what texor does, the GSoC 2024 plan to enhance the <strong>texor</strong> package came about.</p>
+<p>I was intrigued by the idea of this project and submitted my test results, which were eventually approved by my mentors. At the end of this project, texor is not only extremely compatible with most Sweave documents, but also supports user-specified output formats for R Markdown. texor’s goal is to make the HTML output as consistent as possible with the pdf version, so it is not just a matter of converting the content of the article by mapping, but rather, it is about intelligently selecting a more appropriate output method for the final layout.</p>
 </div>
-<div id="acknowledgments" class="section level1 unnumbered">
+<div id="sec:tech" class="section level1">
+<h1>Technical details in texor</h1>
+<p>Converting Sweave to R Markdown is almost equivalent to converting LaTeX to Markdown, except that Sweave extends LaTeX’s syntax with R code chunks and R inline code, as well as supporting a number of options for Sweave’s output styles and including metadata about the document (e.g., the vignette’s entry name). R Markdown extends Markdown with pandoc extensions in almost the same way. In addition, the Sweave format includes Sweave and knitr, while R Markdown uses knitr. The good news is that the knitr package provides a function to convert Sweave options to knitr options, allowing texor to convert while knitr as a bridge between the two.</p>
+<div id="r-code-chunk" class="section level2">
+<h2>R Code Chunk</h2>
+<p>For the R code chunk, I used two pandoc lua filters to separate the article from the R code chunk, and the positioning of the R code block was recorded via some placeholders. After converting the rest of the article to Markdown format, the placeholder is then replaced with the original R code chunk and modified to R Markdown syntax.</p>
+</div>
+<div id="yaml-front-matter" class="section level2">
+<h2>Yaml Front Matter</h2>
+<p>Yaml front matter is a powerful extension to Markdown by pandoc, which allows you to record metadata to make up for Markdown’s lack of being a lightweight markup language, a feature that has been well inherited by R Markdown. texor is the main tool for editing metadata in R Markdown documents, including title, HTML output option, citation styles, and so on. It is worth mentioning that texor adds custom JavaScript and CSS scripts to the meta information and makes some minor changes to the default styles.</p>
+</div>
+<div id="figures" class="section level2">
+<h2>Figures</h2>
+<p>In order to center and dynamically number the images, texor uses a lua filter to turn traditional Markdown images into images that inserted by R code chunk, which also allows for better crossing reference and captioning the images.</p>
+</div>
+<div id="algorithms" class="section level2">
+<h2>Algorithms</h2>
+<p>The algorithm environment in LaTeX is also a classic Markdown document can not be realized, in order to allow R Markdown document can render the HTML output displaying the algorithm like pdf, texor realize this feature with the help of <a href="https://github.com/SaswatPadhi/%20pseudocode.js/">pseudocode.js</a>. For the extraction of algorithmic environment, texor uses the same approach as for R code chunks.</p>
+</div>
+</div>
+<div id="sec:acknowledge" class="section level1 unnumbered">
 <h1>Acknowledgments</h1>
-<p>Thanks for…</p>
+<p>I want to thanks Abhishek Ulayil and Christophe Dervieux for their technology support, and thanks Heather Turner and Dianne Cook for their helpful suggestions from a user’s perspective. Thanks to them, texor’s new features are much easier to use for new user now.</p>
+</div>
+<div id="sec:links" class="section level1 unnumbered">
+<h1>Links to My Work</h1>
+<p>The main repository of <a href="https://github.com/Abhi-1U/texor"><strong>texor</strong></a> is Abhishek Ulayil’s. You can find two pull requests from <a href="https://github.com/fzyxh/texor"><strong>my fork</strong></a> in the repository. <a href="https://github.com/Abhi-1U/texor/pull/75">The first one</a> is about my work before the midterm evaluation, and <a href="https://github.com/Abhi-1U/texor/pull/89">the second one</a> is about my work before the final evaluation.</p>
+<p>To test the new features of <strong>texor</strong>, I create a repository <a href="https://github.com/fzyxh/texor-playground/"><strong>texor-playground</strong></a> to show how to use them.</p>
+<p>To report and discuss with my mentors weekly, I create a repository <a href="https://github.com/fzyxh/GSoC-2024-Weekly-Report"><strong>texor-weekly-report</strong></a> to record my work. What’s more, this summary is also hosted in this repository.</p>
 </div>
 </div>
 

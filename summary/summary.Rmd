@@ -1,9 +1,18 @@
 ---
 title: |-
-  Sweave to R Markdown: new feature of `texor` package
+  From Sweave to R Markdown: How **texor** Help User Embrace the Web Format
 abstract: |
-  This is a short overview of the R package **texor**,
-  I'm Yinxiang Huang.
+  Many of the early R packages used Sweave to write vigneettes,
+  which will be shown to users as pdf format on CRAN. However, as
+  time goes on, R Markdown, a lightweight markup language, has
+  begun to gradually replace Sweave and better present content
+  on CRAN in the form of HTML.
+
+  In order to help many R package developers who haven't used R
+  Markdown or don't have time to do the format conversion manually
+  to migrate from Sweave to R Markdown, **texor** helps people
+  automate this conversion process. That is most of my work in GSoC
+  2024.
 author: |
   Yinxiang Huang
 date: '2024-08-21'
@@ -21,10 +30,40 @@ link-citations: yes
 
 # Introduction {#sec:Intro}
 
-It's a biref introduction of the package **texor**.
+texor used to be a toolkit for automating the conversion of R-Journal from pdf version to HTML version, with the aim of helping archives in CRAN migrate more easily to a flexible reading web format. When my mentors realized that there were still a lot of users struggling with how to easily convert their documents from Sweave format to R Markdown, and considering that this is very similar to what texor does, the GSoC 2024 plan to enhance the **texor** package came about.
 
-# Acknowledgments {#acknowledgments .unnumbered}
+I was intrigued by the idea of this project and submitted my test results, which were eventually approved by my mentors. At the end of this project, texor is not only extremely compatible with most Sweave documents, but also supports user-specified output formats for R Markdown. texor's goal is to make the HTML output as consistent as possible with the pdf version, so it is not just a matter of converting the content of the article by mapping, but rather, it is about intelligently selecting a more appropriate output method for the final layout.
 
-Thanks for...
+# Technical details in texor {#sec:tech}
+
+Converting Sweave to R Markdown is almost equivalent to converting LaTeX to Markdown, except that Sweave extends LaTeX's syntax with R code chunks and R inline code, as well as supporting a number of options for Sweave's output styles and including metadata about the document (e.g., the vignette's entry name). R Markdown extends Markdown with pandoc extensions in almost the same way. In addition, the Sweave format includes Sweave and knitr, while R Markdown uses knitr. The good news is that the knitr package provides a function to convert Sweave options to knitr options, allowing texor to convert while knitr as a bridge between the two.
+
+## R Code Chunk
+
+For the R code chunk, I used two pandoc lua filters to separate the article from the R code chunk, and the positioning of the R code block was recorded via some placeholders. After converting the rest of the article to Markdown format, the placeholder is then replaced with the original R code chunk and modified to R Markdown syntax.
+
+## Yaml Front Matter
+
+Yaml front matter is a powerful extension to Markdown by pandoc, which allows you to record metadata to make up for Markdown's lack of being a lightweight markup language, a feature that has been well inherited by R Markdown. texor is the main tool for editing metadata in R Markdown documents, including title, HTML output option, citation styles, and so on. It is worth mentioning that texor adds custom JavaScript and CSS scripts to the meta information and makes some minor changes to the default styles.
+
+## Figures
+
+In order to center and dynamically number the images, texor uses a lua filter to turn traditional Markdown images into images that inserted by R code chunk, which also allows for better crossing reference and captioning the images.
+
+## Algorithms
+
+The algorithm environment in LaTeX is also a classic Markdown document can not be realized, in order to allow R Markdown document can render the HTML output displaying the algorithm like pdf, texor realize this feature with the help of [pseudocode.js](https://github.com/SaswatPadhi/ pseudocode.js/). For the extraction of algorithmic environment, texor uses the same approach as for R code chunks.
+
+# Acknowledgments {#sec:acknowledge .unnumbered}
+
+I want to thanks Abhishek Ulayil and Christophe Dervieux for their technology support, and thanks Heather Turner and Dianne Cook for their helpful suggestions from a user's perspective. Thanks to them, texor's new features are much easier to use for new user now.
+
+# Links to My Work {#sec:links .unnumbered}
+
+The main repository of [**texor**](https://github.com/Abhi-1U/texor) is Abhishek Ulayil's. You can find two pull requests from [**my fork**](https://github.com/fzyxh/texor) in the repository. [The first one](https://github.com/Abhi-1U/texor/pull/75) is about my work before the midterm evaluation, and [the second one](https://github.com/Abhi-1U/texor/pull/89) is about my work before the final evaluation.
+
+To test the new features of **texor**, I create a repository [**texor-playground**](https://github.com/fzyxh/texor-playground/) to show how to use them.
+
+To report and discuss with my mentors weekly, I create a repository [**texor-weekly-report**](https://github.com/fzyxh/GSoC-2024-Weekly-Report) to record my work. What's more, this summary is also hosted in this repository.
 
 :::
