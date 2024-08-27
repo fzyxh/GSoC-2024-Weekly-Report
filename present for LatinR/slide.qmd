@@ -1,0 +1,146 @@
+---
+title: "From Sweave to R Markdown"
+subtitle: "How **texor** Help User Embrace the Web Format"
+author: "Yinxiang Huang"
+format: 
+  revealjs:
+    slide-number: true
+    logo: image/texor-hex-sticker.svg
+    css: custom.css
+    theme: serif
+---
+
+# Self Introduction
+
+## Who am I?
+
+I'm Yinxiang Huang now living in Beijing, China.
+
+&nbsp;
+
+::: columns
+::: {.column width="40%"}
+::: {style="display: flex; justify-content: center; align-items: center; height: 30vh;"}
+![My GitHub Avatar](image/fzyxh_avatar.png)
+:::
+:::
+
+::: {.column width="60%"}
+::: {style="font-size: 0.8em;"}
+- A Biomedical Engineering undergraduate student
+- A R user and R package developer
+- A LaTeX user and Markdown user
+- A fan of open-source software
+- An amateur programming enthusiast
+:::
+:::
+:::
+
+::: footer
+My GitHub Profile: [fzyxh](https://github.com/fzyxh)
+:::
+
+::: {.notes}
+Let me make a short introduction to myself first.
+
+My name is Yinxiang Huang, and now study as a Biomedical Engineering undergraduate student in Beijing. Obviously I'm a R user and R package developer, and also a LaTeX user and Markdown user. That's why I can introduce texor to you today. Rather than that, I'm a fan of open-source software and an amateur programming enthusiast. 
+
+Most of the time, I benefit from the open-source community. This is the time, that I have a good opportunity to contribute to the community and share my work with others. I'm honored to have this opportunity.
+:::
+
+# Our Work
+
+## Overview
+
+**texor** used to be an automatical conversion tool from LaTeX R-Journal to web format.
+
+&nbsp;
+
+Now after finished GSoC 2024, texor added a new primary feature: **automatically convert Sweave to R Markdown**.
+
+::: footer
+GitHub Repository: [texor](https://github.com/Abhi-1U/texor)
+:::
+
+::: {.notes}
+**texor** used to be an automatical conversion tool from LaTeX R-Journal to web format. That was the original idea of texor and Abhishek has done a great job on that. He created this package during GSoC 2022 and 2023. To go deeper with this idea, he proposed to enhance texor by supporting the conversion from Sweave to R Makrdown.
+
+It will be a great help because many of the early R packages used Sweave to write vigneettes, which will be shown to users as pdf format on CRAN. However, as time goes on, R Markdown, a lightweight markup language, has begun to gradually replace Sweave and better present content on CRAN in the form of HTML.
+
+In order to help many R package developers who haven't used R Markdown or don't have time to do the format conversion manually to migrate from Sweave to R Markdown, **texor** aims to help people automate this conversion process. That is most of my work in GSoC 2024.
+:::
+
+## Previous Work
+
+`Rnw2Rmd` for example:
+
+::: columns
+::: {.column width="60%"}
+- fixed yaml front matter
+- manual code chunk conversion
+- loss style and some content
+- wrong numbering of figures and tables
+- ...
+:::
+
+::: {.column width="40%"}
+::: {style="font-size: 0.8em;"}
+
+Sweave:
+
+```latex
+\\begin{itemize}
+\\item One item
+\\item Another item 
+\\end{itemize}
+```
+
+$$
+\Downarrow
+$$
+
+R Markdown:
+
+````markdown
+```{=latex}
+\\begin{itemize}
+-  One item
+-  Another item
+\\end{itemize}
+```
+````
+:::
+:::
+:::
+
+::: footer
+GitHub Repository: [Rnw2Rmd](https://github.com/Bioconductor/Rnw2Rmd)
+:::
+
+::: {.notes}
+There are a few packages tried to do this before, but they are not widely used because of various defects in the end. They only have some simple replacement logic based on regular expressions and use pandoc to convert the rest part of the article, which may cause some problems.
+
+For example, the project Bioconductor has a package called `Rnw2Rmd` which automates parts of the process of converting Sweave vignettes to R Markdown. Unfortunately, it can only output with fixed yaml front matter and the code chunks must be manually converted. For figures and tables, it may have a loss in style and content during the conversion. Also, the numbering of figures and tables may be wrong in the final output especially if they are a mix of file resource and code chunk generation.
+
+You can see a failed example of the conversion from Sweave to R Markdown using `Rnw2Rmd` in the right column. It cannot convert the itemize to native R Markdown syntax and obviously the output is not what we expected.
+:::
+
+## Highlights of texor's new Feature
+
+
+
+## Technical Details
+
+
+
+# Future Goals
+
+## About texor
+
+
+
+## About Me
+
+
+
+# Thank you!

@@ -1,0 +1,10 @@
+.reveal .slide-logo {
+  height: 100px !important;
+  width: 100px !important;
+  max-width: unset !important;
+  max-height: 5rem !important;
+}
+
+#title-slide .title {
+  font-size: 1.8em;
+}
