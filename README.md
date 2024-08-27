@@ -27,3 +27,5 @@ Source code repository is [here](https://github.com/fzyxh/texor)
 [Week 13](./week13/week13.html)
 
 [summary](./summary/summary.html)
+
+[slide for Latin R](./present%20for%20LatinR/slide.html)
