@@ -8,7 +8,7 @@
 <link href="slide_files/libs/quarto-html/light-border.css" rel="stylesheet">
 <link href="slide_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="slide_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.4.553">
+  <meta name="generator" content="quarto-1.4.555">
 
   <meta name="author" content="Yinxiang Huang">
   <title>From Sweave to R Markdown</title>
@@ -536,6 +536,16 @@ Yinxiang Huang
 </section>
 <section id="highlights-of-texors-new-feature" class="slide level2">
 <h2>Highlights of texor’s new Feature</h2>
+<ul>
+<li>automatical conversion of R code chunks</li>
+<li>various options for yaml front matter</li>
+<li>LaTeX style for equations and Sections</li>
+<li>automatical integration of references</li>
+<li>excellent compatibility with cross-references</li>
+<li>support for user-defined LaTeX macros</li>
+<li>…</li>
+</ul>
+<p><a href="./example_articles/a.html" data-preview-link="true">Preview</a></p>
 </section>
 <section id="technical-details" class="slide level2">
 <h2>Technical Details</h2>
@@ -585,7 +595,7 @@ Yinxiang Huang
       // https://revealjs.com/config/
       Reveal.initialize({
 'controlsAuto': true,
-'previewLinksAuto': false,
+'previewLinksAuto': true,
 'pdfSeparateFragments': false,
 'autoAnimateEasing': "ease",
 'autoAnimateDuration': 1,

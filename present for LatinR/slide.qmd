@@ -8,6 +8,7 @@ format:
     logo: image/texor-hex-sticker.svg
     css: custom.css
     theme: serif
+    preview-links: auto
 ---
 
 # Self Introduction
@@ -127,7 +128,15 @@ You can see a failed example of the conversion from Sweave to R Markdown using `
 
 ## Highlights of texor's new Feature
 
+- automatical conversion of R code chunks
+- various options for yaml front matter
+- LaTeX style for equations and Sections
+- automatical integration of references
+- excellent compatibility with cross-references
+- support for user-defined LaTeX macros
+- ...
 
+[Preview](./example_articles/a.html){preview-link="true"}
 
 ## Technical Details
 
