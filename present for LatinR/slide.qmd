@@ -17,7 +17,7 @@ format:
 
 I'm Yinxiang Huang now living in Beijing, China.
 
-&nbsp;
+<br/>
 
 ::: columns
 ::: {.column width="40%"}
@@ -136,20 +136,79 @@ You can see a failed example of the conversion from Sweave to R Markdown using `
 - support for user-defined LaTeX macros
 - ...
 
-[Preview](./example_articles/a.html){preview-link="true"}
+::: {.notes}
+Here I will introduce the highlights of texor's new feature. Most importantly, texor can automatically convert R code chunks from Sweave to R Markdown. It can also provide various options for yaml front matter, which is very useful for users to customize the output. We provide three default templates: vignettes, biocstyle and litedown for users to choose from.
+
+Our goal is to try to keep the LaTeX style as much as possible rather than just converting through mapping. We embedded CSS and JavaScript in the output HTML file header via yaml front matter to make the output more LaTeX-like.
+
+To ease the integration of references, texor can automatically integrate the references from the Sweave file into citation file as BibTeX format, and then use the bibliography in the yaml front matter. We also keep the cross-references dynamical in the output R Markdown file, which make it much convenient for users to add or delete numbered items like figures, tables, and sections anywhere without manually edit other numbering.
+
+We noticed some users may have their own LaTeX macros defined in the Sweave file, so we also support user-defined LaTeX macros in texor. texor will automatically detect them and convert to available syntax in the output R Markdown file.
+:::
 
 ## Technical Details
 
+### Code Chunk Conversion
 
+::: columns
+::: {.column width="50%"}
+::: {.fragment .highlight-red}
+::: {.fragment .semi-fade-out}
+1. detect code chunks
+2. extract apart from article
+3. convert article to Markdown
+4. insert R code chunks
+:::
+:::
+:::
+
+::: {.column width="50%"}
+<img src="./image/r code chunk.svg" style="zoom:75%;" />
+:::
+:::
+
+## Technical Details
+
+### Code Chunk Conversion
+
+::: columns
+::: {.column width="50%"}
+
+::: {style="color: #ff2c2d;opacity: .5;"}
+1. detect code chunks
+:::
+
+::: {.fragment .highlight-red}
+::: {.fragment .fade-out}
+2. detect code chunks
+:::
+:::
+
+:::
+
+::: {.column width="50%"}
+1. convert code chunks
+2. convert code chunks
+:::
+:::
+
+[Preview](./example_articles/a.html){preview-link="true"}
+
+::: {.notes}
+For developers, I guess you may be interested in the technical details of texor. So next I will share some of them with you.
+:::
 
 # Future Goals
 
 ## About texor
 
+- provide more options for user to customize the article style
+- collect feedbacks from users and improve the conversion quality
 
+::: {.notes}
+In the future, we plan to provide more options for users to customize the article style. For example, we may add more templates for users to choose from, or provide option for users to customize the numbering style. And We will keep collectin feedbacks from users and improve the conversion quality. We hope to make texor a more user-friendly and powerful tool for users to convert Sweave to R Markdown.
 
-## About Me
-
-
+That's all, thank you!
+:::
 
 # Thank you!
