@@ -44,9 +44,7 @@ My GitHub Profile: [fzyxh](https://github.com/fzyxh)
 ::: {.notes}
 Let me make a short introduction to myself first.
 
-My name is Yinxiang Huang, and now study as a Biomedical Engineering undergraduate student in Beijing. Obviously I'm a R user and R package developer, and also a LaTeX user and Markdown user. That's why I can introduce texor to you today. Rather than that, I'm a fan of open-source software and an amateur programming enthusiast. 
-
-Most of the time, I benefit from the open-source community. This is the time, that I have a good opportunity to contribute to the community and share my work with others. I'm honored to have this opportunity.
+My name is Yinxiang Huang, and now study as a Biomedical Engineering undergraduate student in Beijing. Obviously I'm a R user and R package developer, and also a LaTeX user and Markdown user. That's why I can introduce texor to you today. Rather than that, 
 :::
 
 # Our Work
@@ -60,27 +58,27 @@ Most of the time, I benefit from the open-source community. This is the time, th
 Now after finished GSoC 2024, texor added a new primary feature: **automatically convert Sweave to R Markdown**.
 
 ::: footer
+R-Journal conversion via texor: [RJ-2009-014](https://rjournal.github.io/articles/RJ-2009-014/){preview-link="true"}
+
 GitHub Repository: [texor](https://github.com/Abhi-1U/texor)
 :::
 
 ::: {.notes}
-**texor** used to be an automatical conversion tool from LaTeX R-Journal to web format. That was the original idea of texor and Abhishek has done a great job on that. He created this package during GSoC 2022 and 2023. To go deeper with this idea, he proposed to enhance texor by supporting the conversion from Sweave to R Makrdown.
+**texor** used to be an automatical conversion tool from LaTeX R-Journal to web format. That was the original idea of texor and Abhishek has done a great job on that. He created this package during 2022 and 2023. And Here I would like to show a published R-Journal article generated via texor. To go deeper with this idea, he proposed to enhance texor by supporting the conversion from Sweave to R Makrdown.
 
 It will be a great help because many of the early R packages used Sweave to write vigneettes, which will be shown to users as pdf format on CRAN. However, as time goes on, R Markdown, a lightweight markup language, has begun to gradually replace Sweave and better present content on CRAN in the form of HTML.
 
-In order to help many R package developers who haven't used R Markdown or don't have time to do the format conversion manually to migrate from Sweave to R Markdown, **texor** aims to help people automate this conversion process. That is most of my work in GSoC 2024.
+In order to help many R package developers who haven't used R Markdown or don't have time to do the format conversion manually to migrate from Sweave to R Markdown, **texor** aims to help people automate this conversion process. That is most of my work in texor.
 :::
 
-## Previous Work
-
-`Rnw2Rmd` for example:
+## Why difficult to convert?
 
 ::: columns
 ::: {.column width="60%"}
-- fixed yaml front matter
+- keep metadata in R Markdown
 - manual code chunk conversion
 - loss style and some content
-- wrong numbering of figures and tables
+- manual numbering of figures and tables
 - ...
 :::
 
@@ -97,7 +95,7 @@ Sweave:
 ```
 
 $$
-\Downarrow
+\Downarrow \text{Pandoc}
 $$
 
 R Markdown:
@@ -115,15 +113,16 @@ R Markdown:
 :::
 
 ::: footer
-GitHub Repository: [Rnw2Rmd](https://github.com/Bioconductor/Rnw2Rmd)
+GitHub Repository: [Pandoc](https://pandoc.org/MANUAL.html)
 :::
 
 ::: {.notes}
-There are a few packages tried to do this before, but they are not widely used because of various defects in the end. They only have some simple replacement logic based on regular expressions and use pandoc to convert the rest part of the article, which may cause some problems.
 
-For example, the project Bioconductor has a package called `Rnw2Rmd` which automates parts of the process of converting Sweave vignettes to R Markdown. Unfortunately, it can only output with fixed yaml front matter and the code chunks must be manually converted. For figures and tables, it may have a loss in style and content during the conversion. Also, the numbering of figures and tables may be wrong in the final output especially if they are a mix of file resource and code chunk generation.
+texor is dedicated to solving some key points in the process of Sweave to R Markdown conversion, so that users will have the convenience of automated conversion as much as possible. There is a list of challenges that is hard to accomplish through automation.
 
-You can see a failed example of the conversion from Sweave to R Markdown using `Rnw2Rmd` in the right column. It cannot convert the itemize to native R Markdown syntax and obviously the output is not what we expected.
+To provide a robust solution, texor does not only use some simple replacement logic based on regular expressions and use pandoc to convert the rest part of the article, which may cause some problems.
+
+You can see a failed example of the conversion from Sweave to R Markdown using pandoc in the right column. It cannot convert the itemize to native R Markdown syntax and obviously the output is not what we expected.
 :::
 
 ## Highlights of texor's new Feature
@@ -151,52 +150,69 @@ We noticed some users may have their own LaTeX macros defined in the Sweave file
 ### Code Chunk Conversion
 
 ::: columns
-::: {.column width="50%"}
-::: {.fragment .highlight-red}
-::: {.fragment .semi-fade-out}
+::: {.column width="60%"}
+::: {style="color: #00000;opacity: 1;"}
+::: {.fragment .highlight-red data-fragment-index="1"}
+::: {.fragment .semi-fade-out data-fragment-index="2"}
 1. detect code chunks
+:::
+:::
+::: {.fragment .highlight-red data-fragment-index="2"}
+::: {.fragment .semi-fade-out data-fragment-index="3"}
 2. extract apart from article
+:::
+:::
+::: {.fragment .highlight-red data-fragment-index="3"}
+::: {.fragment .semi-fade-out data-fragment-index="4"}
 3. convert article to Markdown
+:::
+:::
+::: {.fragment .highlight-red data-fragment-index="4"}
 4. insert R code chunks
 :::
 :::
 :::
 
-::: {.column width="50%"}
-<img src="./image/r code chunk.svg" style="zoom:75%;" />
+::: {.column width="40%"}
+<img src="./image/r code chunk.svg" style="zoom:81%;" />
 :::
+:::
+
+::: {.notes}
+For developers, I guess you may be interested in the technical details of texor. So next I will share some of them with you.
+
+The first is the core function of texor, the conversion of R code chunks. We have a four-step process to convert the R code chunks from Sweave to R Markdown. First, we detect the R code chunks in the Sweave file. Second, we extract the code chunks apart from the article. Third, we convert the article to Markdown. Finally, we insert the R code chunks into the Markdown file.
+
+To make it easier to understand, I put the workflow with sample code in the right column. You can see how texor converts R code chunks from Sweave to R Markdown.
+
+Why we cannot use Lua filter throughout the whole process? That is because the Abstract Syntax Tree, or AST in Pandoc is not complicated enough to record the attributes of R code chunks. It could tell which part is a R code chunk, but it cannot preserve the label, the figure options, and other attributes of the R code chunk. So we have to extract the R code chunks apart from the article so that it won't be converted by pandoc. In the middle of the process, we address the position with a placeholder, which is a unique string that can be easily replaced by the R code chunk later.
+:::
+
+::: footer
+[Example article](./example_articles/a.html){preview-link="true"}
 :::
 
 ## Technical Details
 
-### Code Chunk Conversion
+### Auto numbering of Figures
 
-::: columns
-::: {.column width="50%"}
 
-::: {style="color: #ff2c2d;opacity: .5;"}
-1. detect code chunks
-:::
-
-::: {.fragment .highlight-red}
-::: {.fragment .fade-out}
-2. detect code chunks
-:::
-:::
-
-:::
-
-::: {.column width="50%"}
-1. convert code chunks
-2. convert code chunks
-:::
-:::
-
-[Preview](./example_articles/a.html){preview-link="true"}
 
 ::: {.notes}
-For developers, I guess you may be interested in the technical details of texor. So next I will share some of them with you.
+Another technical detail I want to share with you is the automatic numbering of figures and tables. We know that in Sweave or LaTeX, users can manually set the numbering of figures and tables or automatically, it's optional. But in most time, users may want to keep the numbering dynamic to make it easier to edit later. So we have to find a way to automatically number the figures and tables in the output R Markdown file.
 :::
+
+## Technical Details
+
+### LaTeX style for equations and Sections
+
+
+
+## Technical Details
+
+### Show with article
+
+
 
 # Future Goals
 
@@ -207,6 +223,8 @@ For developers, I guess you may be interested in the technical details of texor.
 
 ::: {.notes}
 In the future, we plan to provide more options for users to customize the article style. For example, we may add more templates for users to choose from, or provide option for users to customize the numbering style. And We will keep collectin feedbacks from users and improve the conversion quality. We hope to make texor a more user-friendly and powerful tool for users to convert Sweave to R Markdown.
+
+Most of the time, I benefit from the open-source community. Thanks to Google Summer of Code, I have a good chance to contribute to the community and share my work with others. I'm honored to have this opportunity.
 
 That's all, thank you!
 :::

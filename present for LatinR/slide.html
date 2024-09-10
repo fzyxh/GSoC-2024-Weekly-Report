@@ -465,12 +465,13 @@ Yinxiang Huang
 <p>&nbsp;</p>
 <p>Now after finished GSoC 2024, texor added a new primary feature: <strong>automatically convert Sweave to R Markdown</strong>.</p>
 <div class="footer">
+<p>R-Journal conversion via texor: <a href="https://rjournal.github.io/articles/RJ-2009-014/" data-preview-link="true">RJ-2009-014</a></p>
 <p>GitHub Repository: <a href="https://github.com/Abhi-1U/texor">texor</a></p>
 </div>
 <aside class="notes">
-<p><strong>texor</strong> used to be an automatical conversion tool from LaTeX R-Journal to web format. That was the original idea of texor and Abhishek has done a great job on that. He created this package during GSoC 2022 and 2023. To go deeper with this idea, he proposed to enhance texor by supporting the conversion from Sweave to R Makrdown.</p>
+<p><strong>texor</strong> used to be an automatical conversion tool from LaTeX R-Journal to web format. That was the original idea of texor and Abhishek has done a great job on that. He created this package during 2022 and 2023. And Here I would like to show a published R-Journal article generated via texor. To go deeper with this idea, he proposed to enhance texor by supporting the conversion from Sweave to R Makrdown.</p>
 <p>It will be a great help because many of the early R packages used Sweave to write vigneettes, which will be shown to users as pdf format on CRAN. However, as time goes on, R Markdown, a lightweight markup language, has begun to gradually replace Sweave and better present content on CRAN in the form of HTML.</p>
-<p>In order to help many R package developers who haven’t used R Markdown or don’t have time to do the format conversion manually to migrate from Sweave to R Markdown, <strong>texor</strong> aims to help people automate this conversion process. That is most of my work in GSoC 2024.</p>
+<p>In order to help many R package developers who haven’t used R Markdown or don’t have time to do the format conversion manually to migrate from Sweave to R Markdown, <strong>texor</strong> aims to help people automate this conversion process. That is most of my work in texor.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -483,16 +484,15 @@ Yinxiang Huang
           display:block!important;
       }</style></aside>
 </section>
-<section id="previous-work" class="slide level2">
-<h2>Previous Work</h2>
-<p><code>Rnw2Rmd</code> for example:</p>
+<section id="why-difficult-to-convert" class="slide level2">
+<h2>Why difficult to convert?</h2>
 <div class="columns">
 <div class="column" style="width:60%;">
 <ul>
-<li>fixed yaml front matter</li>
+<li>keep metadata in R Markdown</li>
 <li>manual code chunk conversion</li>
 <li>loss style and some content</li>
-<li>wrong numbering of figures and tables</li>
+<li>manual numbering of figures and tables</li>
 <li>…</li>
 </ul>
 </div><div class="column" style="width:40%;">
@@ -503,7 +503,7 @@ Yinxiang Huang
 <span id="cb1-3"><a href=""></a><span class="fu">\\</span>item Another item </span>
 <span id="cb1-4"><a href=""></a><span class="fu">\\</span>end{itemize}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><span class="math display">\[
-\Downarrow
+\Downarrow \text{Pandoc}
 \]</span></p>
 <p>R Markdown:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href=""></a><span class="in">```{=latex}</span></span>
@@ -516,12 +516,12 @@ Yinxiang Huang
 </div>
 </div>
 <div class="footer">
-<p>GitHub Repository: <a href="https://github.com/Bioconductor/Rnw2Rmd">Rnw2Rmd</a></p>
+<p>GitHub Repository: <a href="https://pandoc.org/MANUAL.html">Pandoc</a></p>
 </div>
 <aside class="notes">
-<p>There are a few packages tried to do this before, but they are not widely used because of various defects in the end. They only have some simple replacement logic based on regular expressions and use pandoc to convert the rest part of the article, which may cause some problems.</p>
-<p>For example, the project Bioconductor has a package called <code>Rnw2Rmd</code> which automates parts of the process of converting Sweave vignettes to R Markdown. Unfortunately, it can only output with fixed yaml front matter and the code chunks must be manually converted. For figures and tables, it may have a loss in style and content during the conversion. Also, the numbering of figures and tables may be wrong in the final output especially if they are a mix of file resource and code chunk generation.</p>
-<p>You can see a failed example of the conversion from Sweave to R Markdown using <code>Rnw2Rmd</code> in the right column. It cannot convert the itemize to native R Markdown syntax and obviously the output is not what we expected.</p>
+<p>texor is dedicated to solving some key points in the process of Sweave to R Markdown conversion, so that users will have the convenience of automated conversion as much as possible. There is a list of challenges that is hard to accomplish through automation.</p>
+<p>To provide a robust solution, texor does not only use some simple replacement logic based on regular expressions and use pandoc to convert the rest part of the article, which may cause some problems.</p>
+<p>You can see a failed example of the conversion from Sweave to R Markdown using pandoc in the right column. It cannot convert the itemize to native R Markdown syntax and obviously the output is not what we expected.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -566,49 +566,42 @@ Yinxiang Huang
 <h2>Technical Details</h2>
 <h3 id="code-chunk-conversion">Code Chunk Conversion</h3>
 <div class="columns">
-<div class="column" style="width:50%;">
-<div class="fragment highlight-red">
-<div class="fragment semi-fade-out">
+<div class="column" style="width:60%;">
+<div style="color: #00000;opacity: 1;">
+<div class="fragment highlight-red" data-fragment-index="1">
+<div class="fragment semi-fade-out" data-fragment-index="2">
 <ol type="1">
 <li>detect code chunks</li>
+</ol>
+</div>
+</div>
+<div class="fragment highlight-red" data-fragment-index="2">
+<div class="fragment semi-fade-out" data-fragment-index="3">
+<ol start="2" type="1">
 <li>extract apart from article</li>
+</ol>
+</div>
+</div>
+<div class="fragment highlight-red" data-fragment-index="3">
+<div class="fragment semi-fade-out" data-fragment-index="4">
+<ol start="3" type="1">
 <li>convert article to Markdown</li>
+</ol>
+</div>
+</div>
+<div class="fragment highlight-red" data-fragment-index="4">
+<ol start="4" type="1">
 <li>insert R code chunks</li>
 </ol>
 </div>
 </div>
-</div><div class="column" style="width:50%;">
-<p><img src="./image/r code chunk.svg" style="zoom:75%;"></p>
+</div><div class="column" style="width:40%;">
+<p><img src="./image/r code chunk.svg" style="zoom:81%;"></p>
 </div>
 </div>
-</section>
-<section id="technical-details-1" class="slide level2">
-<h2>Technical Details</h2>
-<h3 id="code-chunk-conversion-1">Code Chunk Conversion</h3>
-<div class="columns">
-<div class="column" style="width:50%;">
-<div style="color: #ff2c2d;opacity: .5;">
-<ol type="1">
-<li>detect code chunks</li>
-</ol>
-</div>
-<div class="fragment highlight-red">
-<div class="fragment fade-out">
-<ol start="2" type="1">
-<li>detect code chunks</li>
-</ol>
-</div>
-</div>
-</div><div class="column" style="width:50%;">
-<ol type="1">
-<li>convert code chunks</li>
-<li>convert code chunks</li>
-</ol>
-</div>
-</div>
-<p><a href="./example_articles/a.html" data-preview-link="true">Preview</a></p>
 <aside class="notes">
 <p>For developers, I guess you may be interested in the technical details of texor. So next I will share some of them with you.</p>
+<p>The first is the core function of texor, the conversion of R code chunks. We have a four-step process to convert the R code chunks from Sweave to R Markdown. First, we detect the R code chunks in the Sweave file. Second, we extract the code chunks apart from the article. Third, we convert the article to Markdown. Finally, we insert the R code chunks into the Markdown file.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -620,6 +613,21 @@ Yinxiang Huang
           overflow: hidden!important;
           display:block!important;
       }</style></aside>
+<div class="footer">
+<p><a href="./example_articles/a.html" data-preview-link="true">Example article</a></p>
+</div>
+</section>
+<section id="technical-details-1" class="slide level2">
+<h2>Technical Details</h2>
+<h3 id="auto-numbering-of-figures">Auto numbering of Figures</h3>
+</section>
+<section id="technical-details-2" class="slide level2">
+<h2>Technical Details</h2>
+<h3 id="latex-style-for-equations-and-sections">LaTeX style for equations and Sections</h3>
+</section>
+<section id="technical-details-3" class="slide level2">
+<h2>Technical Details</h2>
+<h3 id="show-with-article">Show with article</h3>
 </section></section>
 <section>
 <section id="future-goals" class="title-slide slide level1 center">

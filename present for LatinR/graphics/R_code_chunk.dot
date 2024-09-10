@@ -32,11 +32,13 @@ digraph G1 {
             </tr>
             <tr> 
                 <td align="left">
+<font point-size="9">...</font><br align="left"/>
 <font point-size="9">&lt;&lt;test, fig.cap="A fig o cars"&gt;&gt;=</font><br align="left"/>
 <font point-size="9">cars &lt;- c(1, 3, 6, 4, 9)</font><br align="left"/>
 <font point-size="9">plot(cars, type="o", col="blue")</font><br align="left"/>
 <font point-size="9">title(main="Autos", col.main="red", font.main=4)</font><br align="left"/>
-<font point-size="9">@</font>
+<font point-size="9">@</font><br align="left"/>
+<font point-size="9">...</font>
 <br align="left"/></td></tr>
 		</table>>
 		shape=plain
@@ -45,12 +47,63 @@ digraph G1 {
 		color="#88000022"
 		label=<<table border="0" cellborder="1" cellspacing="0" cellpadding="4">
 			<tr> <td> R code chunks </td> </tr>
+			<tr> 
+                <td align="left">
+<font point-size="9">```{r test, fig.cap="A fig o cars"}</font><br align="left"/>
+<font point-size="9">cars &lt;- c(1, 3, 6, 4, 9)</font><br align="left"/>
+<font point-size="9">plot(cars, type="o", col="blue")</font><br align="left"/>
+<font point-size="9">title(main="Autos", col.main="red", font.main=4)</font><br align="left"/>
+<font point-size="9">```</font>
+<br align="left"/></td></tr>
 		</table>>
 		shape=plain
 	]
-    Sweave -> code [xlabel="sweave_code_reader.lua" color="#88000088"];
+	article [
+		color="#88000022"
+		label=<<table border="0" cellborder="1" cellspacing="0" cellpadding="4">
+			<tr> <td> article </td> </tr>
+			<tr> 
+                <td align="left">
+<font point-size="9">...</font><br align="left"/>
+<font point-size="9">\Rcodeplaceholder{}</font><br align="left"/>
+<font point-size="9">...</font>
+<br align="left"/></td></tr>
+		</table>>
+		shape=plain
+	]
+	Markdown [
+		color="#88000022"
+		label=<<table border="0" cellborder="1" cellspacing="0" cellpadding="4">
+			<tr> <td> Markdown </td> </tr>
+			<tr> 
+                <td align="left">
+<font point-size="9">...</font><br align="left"/>
+<font point-size="9">&lt;!--R_CODE_CHUNK_PLACEHOLDER--&gt;</font><br align="left"/>
+<font point-size="9">...</font>
+<br align="left"/></td></tr>
+		</table>>
+		shape=plain
+	]
+	RMarkdown [
+		color="#88000022"
+		label=<<table border="0" cellborder="1" cellspacing="0" cellpadding="4">
+			<tr> <td> R Markdown </td> </tr>
+			<tr> 
+                <td align="left">
+<font point-size="9">```{r test, fig.cap="A fig o cars"}</font><br align="left"/>
+<font point-size="9">cars &lt;- c(1, 3, 6, 4, 9)</font><br align="left"/>
+<font point-size="9">plot(cars, type="o", col="blue")</font><br align="left"/>
+<font point-size="9">title(main="Autos", col.main="red", font.main=4)</font><br align="left"/>
+<font point-size="9">```</font>
+<br align="left"/></td></tr>
+		</table>>
+		shape=plain
+	]
+    "mergepoint" [shape=diamond,style=filled,label="",height=.1,width=.1,color="#a9e5b0"];
+    Sweave -> code [xlabel="sweave_code_reader.lua" color="#fceea1"];
     Sweave -> article [label="sweave_code_remove.lua" color="#88000088"];
-    article -> Markdown [label=<<b>pandoc</b>> color="#88000088"];
-    code -> RMarkdown;
-    Markdown -> RMarkdown;
+    article -> Markdown [label=<pandoc> color="#88000088"];
+    code -> "mergepoint" [color="#a9e5b0"];
+    Markdown -> "mergepoint" [color="#a9e5b0"];
+    "mergepoint" -> RMarkdown [label=<<b>Merge</b>> color="#a9e5b0"];
 }
