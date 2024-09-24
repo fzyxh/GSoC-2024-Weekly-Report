@@ -440,8 +440,7 @@ Yinxiang Huang
 </div>
 <aside class="notes">
 <p>Let me make a short introduction to myself first.</p>
-<p>My name is Yinxiang Huang, and now study as a Biomedical Engineering undergraduate student in Beijing. Obviously I’m a R user and R package developer, and also a LaTeX user and Markdown user. That’s why I can introduce texor to you today. Rather than that, I’m a fan of open-source software and an amateur programming enthusiast.</p>
-<p>Most of the time, I benefit from the open-source community. This is the time, that I have a good opportunity to contribute to the community and share my work with others. I’m honored to have this opportunity.</p>
+<p>My name is Yinxiang Huang, and now study as a Biomedical Engineering undergraduate student in Beijing. Obviously I’m a R user and R package developer, and also a LaTeX user and Markdown user. That’s why I can introduce texor to you today. Rather than that,</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -602,6 +601,8 @@ Yinxiang Huang
 <aside class="notes">
 <p>For developers, I guess you may be interested in the technical details of texor. So next I will share some of them with you.</p>
 <p>The first is the core function of texor, the conversion of R code chunks. We have a four-step process to convert the R code chunks from Sweave to R Markdown. First, we detect the R code chunks in the Sweave file. Second, we extract the code chunks apart from the article. Third, we convert the article to Markdown. Finally, we insert the R code chunks into the Markdown file.</p>
+<p>To make it easier to understand, I put the workflow with sample code in the right column. You can see how texor converts R code chunks from Sweave to R Markdown.</p>
+<p>Why we cannot use Lua filter throughout the whole process? That is because the Abstract Syntax Tree, or AST in Pandoc is not complicated enough to record the attributes of R code chunks. It could tell which part is a R code chunk, but it cannot preserve the label, the figure options, and other attributes of the R code chunk. So we have to extract the R code chunks apart from the article so that it won’t be converted by pandoc. In the middle of the process, we address the position with a placeholder, which is a unique string that can be easily replaced by the R code chunk later.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -620,12 +621,46 @@ Yinxiang Huang
 <section id="technical-details-1" class="slide level2">
 <h2>Technical Details</h2>
 <h3 id="auto-numbering-of-figures">Auto numbering of Figures</h3>
+
+<img src="./image/texor numbering figure.svg" style="display: block;margin-left: auto;margin-right: auto;zoom: 75%;" class="r-stretch"><aside class="notes">
+<p>Another technical detail I want to share with you is the automatic numbering of figures. We know that in Sweave or LaTeX, users can manually set the numbering of figures or automatically, it’s optional. But in most time, users may want to keep the numbering dynamic to make it easier to edit later. So we have to find a way to automatically number the figures in the output R Markdown file.</p>
+<p>What makes it more complicated than Markdown is that there are code chunks in R Markdown which can output figures, and the figures from code chunks are automatically numbered excluding those outside the code block. Although it makes numbering figures more difficult, it also inspires us. Why can’t we embed all figures as code chunks in R Markdown? In that way we can use R Markdown’s feature to number all the figures.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="technical-details-2" class="slide level2">
 <h2>Technical Details</h2>
-<h3 id="latex-style-for-equations-and-sections">LaTeX style for equations and Sections</h3>
+<h3 id="auto-numbering-of-figures-1">Auto numbering of Figures</h3>
+
+<img src="./image/texor numbering figure 2.svg" style="display: block;margin-left: auto;margin-right: auto;zoom: 85%;" class="r-stretch"><aside class="notes">
+<p>It has three advantages. First, all figures can be automatically numbered without the need for users to manually number them. Second, all figures can be dynamically referenced, so you don’t need to change the reference number when inserting or deleting them. Finally, figures in code chunks are centered, which is more like LaTeX style, whereas Markdown’s default style are left-aligned.</p>
+<p>In terms of implementation, we use pandoc’s lua filter to capture figure objects in the AST and then convert them into corresponding code chunks based on their properties.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="technical-details-3" class="slide level2">
+<h2>Technical Details</h2>
+<h3 id="latex-style-for-equations-and-sections">LaTeX style for equations and Sections</h3>
+</section>
+<section id="technical-details-4" class="slide level2">
 <h2>Technical Details</h2>
 <h3 id="show-with-article">Show with article</h3>
 </section></section>
@@ -642,6 +677,7 @@ Yinxiang Huang
 </ul>
 <aside class="notes">
 <p>In the future, we plan to provide more options for users to customize the article style. For example, we may add more templates for users to choose from, or provide option for users to customize the numbering style. And We will keep collectin feedbacks from users and improve the conversion quality. We hope to make texor a more user-friendly and powerful tool for users to convert Sweave to R Markdown.</p>
+<p>Most of the time, I benefit from the open-source community. Thanks to Google Summer of Code, I have a good chance to contribute to the community and share my work with others. I’m honored to have this opportunity.</p>
 <p>That’s all, thank you!</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {

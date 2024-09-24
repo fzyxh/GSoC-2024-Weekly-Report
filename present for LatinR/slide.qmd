@@ -196,10 +196,24 @@ Why we cannot use Lua filter throughout the whole process? That is because the A
 
 ### Auto numbering of Figures
 
-
+<img src="./image/texor numbering figure.svg" style="display: block;margin-left: auto;margin-right: auto;zoom: 75%;" />
 
 ::: {.notes}
-Another technical detail I want to share with you is the automatic numbering of figures and tables. We know that in Sweave or LaTeX, users can manually set the numbering of figures and tables or automatically, it's optional. But in most time, users may want to keep the numbering dynamic to make it easier to edit later. So we have to find a way to automatically number the figures and tables in the output R Markdown file.
+Another technical detail I want to share with you is the automatic numbering of figures. We know that in Sweave or LaTeX, users can manually set the numbering of figures or automatically, it's optional. But in most time, users may want to keep the numbering dynamic to make it easier to edit later. So we have to find a way to automatically number the figures in the output R Markdown file.
+
+What makes it more complicated than Markdown is that there are code chunks in R Markdown which can output figures, and the figures from code chunks are automatically numbered excluding those outside the code block. Although it makes numbering figures more difficult, it also inspires us. Why can't we embed all figures as code chunks in R Markdown? In that way we can use R Markdown's  feature to number all the figures.
+:::
+
+## Technical Details
+
+### Auto numbering of Figures
+
+<img src="./image/texor numbering figure 2.svg" style="display: block;margin-left: auto;margin-right: auto;zoom: 85%;" />
+
+::: {.notes}
+It has three advantages. First, all figures can be automatically numbered without the need for users to manually number them. Second, all figures can be dynamically referenced, so you don't need to change the reference number when inserting or deleting them. Finally, figures in code chunks are centered, which is more like LaTeX style, whereas Markdown's default style are left-aligned.
+
+In terms of implementation, we use pandoc's lua filter to capture figure objects in the AST and then convert them into corresponding code chunks based on their properties.
 :::
 
 ## Technical Details
