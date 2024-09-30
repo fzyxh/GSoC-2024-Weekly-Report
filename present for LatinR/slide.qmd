@@ -11,42 +11,6 @@ format:
     preview-links: auto
 ---
 
-# Self Introduction
-
-## Who am I?
-
-I'm Yinxiang Huang now living in Beijing, China.
-
-<br/>
-
-::: columns
-::: {.column width="40%"}
-::: {style="display: flex; justify-content: center; align-items: center; height: 30vh;"}
-![My GitHub Avatar](image/fzyxh_avatar.png)
-:::
-:::
-
-::: {.column width="60%"}
-::: {style="font-size: 0.8em;"}
-- A Biomedical Engineering undergraduate student
-- A R user and R package developer
-- A LaTeX user and Markdown user
-- A fan of open-source software
-- An amateur programming enthusiast
-:::
-:::
-:::
-
-::: footer
-My GitHub Profile: [fzyxh](https://github.com/fzyxh)
-:::
-
-::: {.notes}
-Let me make a short introduction to myself first.
-
-My name is Yinxiang Huang, and now study as a Biomedical Engineering undergraduate student in Beijing. Obviously I'm a R user and R package developer, and also a LaTeX user and Markdown user. That's why I can introduce texor to you today. Rather than that, 
-:::
-
 # Our Work
 
 ## Overview
@@ -64,6 +28,8 @@ GitHub Repository: [texor](https://github.com/Abhi-1U/texor)
 :::
 
 ::: {.notes}
+Hello everyone, I am Yinxiang Huang, a student from Beihang University. I am honored to have the opportunity to share my work with you today.
+
 **texor** used to be an automatical conversion tool from LaTeX R-Journal to web format. That was the original idea of texor and Abhishek has done a great job on that. He created this package during 2022 and 2023. And Here I would like to show a published R-Journal article generated via texor. To go deeper with this idea, he proposed to enhance texor by supporting the conversion from Sweave to R Makrdown.
 
 It will be a great help because many of the early R packages used Sweave to write vigneettes, which will be shown to users as pdf format on CRAN. However, as time goes on, R Markdown, a lightweight markup language, has begun to gradually replace Sweave and better present content on CRAN in the form of HTML.
@@ -192,7 +158,7 @@ Why we cannot use Lua filter throughout the whole process? That is because the A
 [Example article](./example_articles/a.html){preview-link="true"}
 :::
 
-## Technical Details
+## Technical Details {transition="fade" auto-animate="true"}
 
 ### Auto numbering of Figures
 
@@ -204,7 +170,7 @@ Another technical detail I want to share with you is the automatic numbering of 
 What makes it more complicated than Markdown is that there are code chunks in R Markdown which can output figures, and the figures from code chunks are automatically numbered excluding those outside the code block. Although it makes numbering figures more difficult, it also inspires us. Why can't we embed all figures as code chunks in R Markdown? In that way we can use R Markdown's  feature to number all the figures.
 :::
 
-## Technical Details
+## Technical Details {auto-animate="true"}
 
 ### Auto numbering of Figures
 
@@ -218,15 +184,76 @@ In terms of implementation, we use pandoc's lua filter to capture figure objects
 
 ## Technical Details
 
-### LaTeX style for equations and Sections
+### LaTeX style for Equations and Sections
+
+```{.yaml code-line-numbers="|9" style="font-size: 0.8em;"}
+---
+title: Just A Sample Article
+foo: bar ...
+output:
+  bookdown::html_document2:
+    base_format: rmarkdown::html_vignette
+    number_sections: no
+    includes:
+      in_header: auto-number-sec-js.html
+---
+
+:::article
+
+...
+```
+
+::: footer
+[HTML header source code](https://github.com/Abhi-1U/texor/blob/main/inst/extdata/auto-number-sec-js.html)
+:::
+
+::: {.notes}
+Then I want to show you how we make effort to keep the LaTeX style in the output R Markdown file. 
+
+As we know, yaml front matter can control part of the article style. However, it has many limitations. For example, sections and equations can only be styled the same way at the same time, and there is no way to make them both alike LaTeX style just via yaml front matter. Therefore, We embedded CSS and JavaScript in the output HTML file header to achieve our goal.
+:::
+
+## Technical Details
+
+### LaTeX style for Equations and Sections
 
 
+::: columns
+::: {.column width="35%"}
+<figure style="text-align: center;">
+    <img src="./image/eq1.png" style="display: block;margin-left: auto;margin-right: auto;zoom: 100%;" alt="eq1" />
+    <figcaption>Original HTML</figcaption>
+</figure>
+:::
+
+::: {.column width="35%"}
+<figure style="text-align: center;">
+    <img src="./image/eq2.png" style="display: block;margin-left: auto;margin-right: auto;zoom: 100%;" alt="eq1" />
+    <figcaption>HTML with Header</figcaption>
+</figure>
+:::
+
+::: {.column width="30%"}
+<figure style="text-align: center;">
+    <img src="./image/eq3.png" style="display: block;margin-left: auto;margin-right: auto;zoom: 100%;" alt="eq1" />
+    <figcaption>PDF from Sweave</figcaption>
+</figure>
+:::
+:::
+
+::: {.notes}
+These three images show the results of our work. On the left is the original HTML file, in the center is the HTML file with header added, and the right ont is the PDF file generated by Sweave. As you can see, by adding header, we have made the style of math equations and sections in the HTML file closer to the LaTeX style. As with LaTeX, the font size of the first level section is smaller than the title, and the numbering of euqations is independent of the section number. This makes it easier for users to convert Sweave to R Markdown without worrying about style changes.
+:::
 
 ## Technical Details
 
 ### Show with article
 
 
+
+::: {.notes}
+
+:::
 
 # Future Goals
 

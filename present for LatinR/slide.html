@@ -8,7 +8,7 @@
 <link href="slide_files/libs/quarto-html/light-border.css" rel="stylesheet">
 <link href="slide_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="slide_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.4.553">
+  <meta name="generator" content="quarto-1.5.57">
 
   <meta name="author" content="Yinxiang Huang">
   <title>From Sweave to R Markdown</title>
@@ -42,7 +42,7 @@
     }
     @media print {
     pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
     }
     pre.numberSource code
       { counter-reset: source-line 0; }
@@ -70,7 +70,7 @@
     code span.at { color: #657422; } /* Attribute */
     code span.bn { color: #ad0000; } /* BaseN */
     code span.bu { } /* BuiltIn */
-    code span.cf { color: #003b4f; } /* ControlFlow */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
     code span.ch { color: #20794d; } /* Char */
     code span.cn { color: #8f5902; } /* Constant */
     code span.co { color: #5e5e5e; } /* Comment */
@@ -84,7 +84,7 @@
     code span.fu { color: #4758ab; } /* Function */
     code span.im { color: #00769e; } /* Import */
     code span.in { color: #5e5e5e; } /* Information */
-    code span.kw { color: #003b4f; } /* Keyword */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
     code span.op { color: #5e5e5e; } /* Operator */
     code span.ot { color: #003b4f; } /* Other */
     code span.pp { color: #ad0000; } /* Preprocessor */
@@ -405,55 +405,6 @@ Yinxiang Huang
 
 </section>
 <section>
-<section id="self-introduction" class="title-slide slide level1 center">
-<h1>Self Introduction</h1>
-
-</section>
-<section id="who-am-i" class="slide level2">
-<h2>Who am I?</h2>
-<p>I’m Yinxiang Huang now living in Beijing, China.</p>
-<p><br></p>
-<div class="columns">
-<div class="column" style="width:40%;">
-<div style="display: flex; justify-content: center; align-items: center; height: 30vh;">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="image/fzyxh_avatar.png"></p>
-<figcaption>My GitHub Avatar</figcaption>
-</figure>
-</div>
-</div>
-</div><div class="column" style="width:60%;">
-<div style="font-size: 0.8em;">
-<ul>
-<li>A Biomedical Engineering undergraduate student</li>
-<li>A R user and R package developer</li>
-<li>A LaTeX user and Markdown user</li>
-<li>A fan of open-source software</li>
-<li>An amateur programming enthusiast</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="footer">
-<p>My GitHub Profile: <a href="https://github.com/fzyxh">fzyxh</a></p>
-</div>
-<aside class="notes">
-<p>Let me make a short introduction to myself first.</p>
-<p>My name is Yinxiang Huang, and now study as a Biomedical Engineering undergraduate student in Beijing. Obviously I’m a R user and R package developer, and also a LaTeX user and Markdown user. That’s why I can introduce texor to you today. Rather than that,</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section></section>
-<section>
 <section id="our-work" class="title-slide slide level1 center">
 <h1>Our Work</h1>
 
@@ -468,6 +419,7 @@ Yinxiang Huang
 <p>GitHub Repository: <a href="https://github.com/Abhi-1U/texor">texor</a></p>
 </div>
 <aside class="notes">
+<p>Hello everyone, I am Yinxiang Huang, a student from Beihang University. I am honored to have the opportunity to share my work with you today.</p>
 <p><strong>texor</strong> used to be an automatical conversion tool from LaTeX R-Journal to web format. That was the original idea of texor and Abhishek has done a great job on that. He created this package during 2022 and 2023. And Here I would like to show a published R-Journal article generated via texor. To go deeper with this idea, he proposed to enhance texor by supporting the conversion from Sweave to R Makrdown.</p>
 <p>It will be a great help because many of the early R packages used Sweave to write vigneettes, which will be shown to users as pdf format on CRAN. However, as time goes on, R Markdown, a lightweight markup language, has begun to gradually replace Sweave and better present content on CRAN in the form of HTML.</p>
 <p>In order to help many R package developers who haven’t used R Markdown or don’t have time to do the format conversion manually to migrate from Sweave to R Markdown, <strong>texor</strong> aims to help people automate this conversion process. That is most of my work in texor.</p>
@@ -512,8 +464,7 @@ Yinxiang Huang
 <span id="cb2-5"><a href=""></a><span class="in">\\end{itemize}</span></span>
 <span id="cb2-6"><a href=""></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</div>
-</div>
+</div></div>
 <div class="footer">
 <p>GitHub Repository: <a href="https://pandoc.org/MANUAL.html">Pandoc</a></p>
 </div>
@@ -596,8 +547,7 @@ Yinxiang Huang
 </div>
 </div><div class="column" style="width:40%;">
 <p><img src="./image/r code chunk.svg" style="zoom:81%;"></p>
-</div>
-</div>
+</div></div>
 <aside class="notes">
 <p>For developers, I guess you may be interested in the technical details of texor. So next I will share some of them with you.</p>
 <p>The first is the core function of texor, the conversion of R code chunks. We have a four-step process to convert the R code chunks from Sweave to R Markdown. First, we detect the R code chunks in the Sweave file. Second, we extract the code chunks apart from the article. Third, we convert the article to Markdown. Finally, we insert the R code chunks into the Markdown file.</p>
@@ -618,8 +568,8 @@ Yinxiang Huang
 <p><a href="./example_articles/a.html" data-preview-link="true">Example article</a></p>
 </div>
 </section>
-<section id="technical-details-1" class="slide level2">
-<h2>Technical Details</h2>
+<section id="technical-details-1" class="slide level2" data-transition="fade" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Technical Details</h2>
 <h3 id="auto-numbering-of-figures">Auto numbering of Figures</h3>
 
 <img src="./image/texor numbering figure.svg" style="display: block;margin-left: auto;margin-right: auto;zoom: 75%;" class="r-stretch"><aside class="notes">
@@ -637,8 +587,8 @@ Yinxiang Huang
           display:block!important;
       }</style></aside>
 </section>
-<section id="technical-details-2" class="slide level2">
-<h2>Technical Details</h2>
+<section id="technical-details-2" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Technical Details</h2>
 <h3 id="auto-numbering-of-figures-1">Auto numbering of Figures</h3>
 
 <img src="./image/texor numbering figure 2.svg" style="display: block;margin-left: auto;margin-right: auto;zoom: 85%;" class="r-stretch"><aside class="notes">
@@ -658,11 +608,95 @@ Yinxiang Huang
 </section>
 <section id="technical-details-3" class="slide level2">
 <h2>Technical Details</h2>
-<h3 id="latex-style-for-equations-and-sections">LaTeX style for equations and Sections</h3>
+<h3 id="latex-style-for-equations-and-sections">LaTeX style for Equations and Sections</h3>
+<div class="sourceCode" id="cb3" style="font-size: 0.8em;" data-code-line-numbers="|9"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb3-1"><a href=""></a><span class="pp">---</span></span>
+<span id="cb3-2"><a href=""></a><span class="fu">title</span><span class="kw">:</span><span class="at"> Just A Sample Article</span></span>
+<span id="cb3-3"><a href=""></a><span class="fu">foo</span><span class="kw">:</span><span class="at"> bar ...</span></span>
+<span id="cb3-4"><a href=""></a><span class="fu">output</span><span class="kw">:</span></span>
+<span id="cb3-5"><a href=""></a><span class="at">  bookdown:</span><span class="fu">:html_document2</span><span class="kw">:</span></span>
+<span id="cb3-6"><a href=""></a><span class="at">    </span><span class="fu">base_format</span><span class="kw">:</span><span class="at"> rmarkdown::html_vignette</span></span>
+<span id="cb3-7"><a href=""></a><span class="at">    </span><span class="fu">number_sections</span><span class="kw">:</span><span class="at"> </span><span class="ch">no</span></span>
+<span id="cb3-8"><a href=""></a><span class="at">    </span><span class="fu">includes</span><span class="kw">:</span></span>
+<span id="cb3-9"><a href=""></a><span class="at">      </span><span class="fu">in_header</span><span class="kw">:</span><span class="at"> auto-number-sec-js.html</span></span>
+<span id="cb3-10"><a href=""></a><span class="pp">---</span></span>
+<span id="cb3-11"><a href=""></a></span>
+<span id="cb3-12"><a href=""></a><span class="at">:::article</span></span>
+<span id="cb3-13"><a href=""></a></span>
+<span id="cb3-14"><a href=""></a><span class="co">...</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="footer">
+<p><a href="https://github.com/Abhi-1U/texor/blob/main/inst/extdata/auto-number-sec-js.html">HTML header source code</a></p>
+</div>
+<aside class="notes">
+<p>Then I want to show you how we make effort to keep the LaTeX style in the output R Markdown file.</p>
+<p>As we know, yaml front matter can control part of the article style. However, it has many limitations. For example, sections and equations can only be styled the same way at the same time, and there is no way to make them both alike LaTeX style just via yaml front matter. Therefore, We embedded CSS and JavaScript in the output HTML file header to achieve our goal.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="technical-details-4" class="slide level2">
 <h2>Technical Details</h2>
+<h3 id="latex-style-for-equations-and-sections-1">LaTeX style for Equations and Sections</h3>
+<div class="columns">
+<div class="column" style="width:35%;">
+<figure style="text-align: center;">
+<img src="./image/eq1.png" style="display: block;margin-left: auto;margin-right: auto;zoom: 100%;" alt="eq1">
+<figcaption>
+Original HTML
+</figcaption>
+</figure>
+</div><div class="column" style="width:35%;">
+<figure style="text-align: center;">
+<img src="./image/eq2.png" style="display: block;margin-left: auto;margin-right: auto;zoom: 100%;" alt="eq1">
+<figcaption>
+HTML with Header
+</figcaption>
+</figure>
+</div><div class="column" style="width:30%;">
+<figure style="text-align: center;">
+<img src="./image/eq3.png" style="display: block;margin-left: auto;margin-right: auto;zoom: 100%;" alt="eq1">
+<figcaption>
+PDF from Sweave
+</figcaption>
+</figure>
+</div></div>
+<aside class="notes">
+<p>These three images show the results of our work. On the left is the original HTML file, in the center is the HTML file with header added, and the right ont is the PDF file generated by Sweave. As you can see, by adding header, we have made the style of math equations and sections in the HTML file closer to the LaTeX style. As with LaTeX, the font size of the first level section is smaller than the title, and the numbering of euqations is independent of the section number. This makes it easier for users to convert Sweave to R Markdown without worrying about style changes.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="technical-details-5" class="slide level2">
+<h2>Technical Details</h2>
 <h3 id="show-with-article">Show with article</h3>
+<aside class="notes">
+
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section></section>
 <section>
 <section id="future-goals" class="title-slide slide level1 center">
@@ -942,18 +976,7 @@ Yinxiang Huang
         }
         return false;
       }
-      const clipboard = new window.ClipboardJS('.code-copy-button', {
-        text: function(trigger) {
-          const codeEl = trigger.previousElementSibling.cloneNode(true);
-          for (const childEl of codeEl.children) {
-            if (isCodeAnnotation(childEl)) {
-              childEl.remove();
-            }
-          }
-          return codeEl.innerText;
-        }
-      });
-      clipboard.on('success', function(e) {
+      const onCopySuccess = function(e) {
         // button target
         const button = e.trigger;
         // don't keep focus
@@ -985,7 +1008,29 @@ Yinxiang Huang
         }, 1000);
         // clear code selection
         e.clearSelection();
+      }
+      const getTextToCopy = function(trigger) {
+          const codeEl = trigger.previousElementSibling.cloneNode(true);
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+      }
+      const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+        text: getTextToCopy
       });
+      clipboard.on('success', onCopySuccess);
+      if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+        // For code content inside modals, clipBoardJS needs to be initialized with a container option
+        // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+        const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+          text: getTextToCopy,
+          container: window.document.getElementById('quarto-embedded-source-code-modal')
+        });
+        clipboardModal.on('success', onCopySuccess);
+      }
         var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
         var mailtoRegex = new RegExp(/^mailto:/);
           var filterRegex = new RegExp('/' + window.location.host + '/');
@@ -993,7 +1038,7 @@ Yinxiang Huang
             return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
         }
         // Inspect non-navigation links and adorn them if external
-     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
         for (var i=0; i<links.length; i++) {
           const link = links[i];
           if (!isInternal(link.href)) {
